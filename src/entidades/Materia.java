@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package entidades;
 
-/**
- *
- * @author roman
- */
 public class Materia {
     private int idMateria;
     private String nombre;
@@ -65,7 +57,7 @@ public class Materia {
 
     @Override
     public String toString() {
-        return "Materia{" + "idMateria=" + idMateria + ", nombre=" + nombre + ", anioMateria=" + anioMateria + '}';
+        return "Materia: " + "ID" + idMateria + ", Nombre" + nombre + ", Año materia" + anioMateria + '}';
     }
     
     
