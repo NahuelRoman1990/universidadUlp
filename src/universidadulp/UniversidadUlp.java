@@ -5,8 +5,12 @@
  */
 package universidadulp;
 
+import accesoAdatos.AlumnoData;
 import accesoAdatos.Conexion;
+import entidades.Alumno;
 import java.sql.Connection;
+import java.time.LocalDate;
+import java.time.Month;
 
 /**
  *
@@ -20,6 +24,12 @@ public class UniversidadUlp {
     public static void main(String[] args) {
         // TODO code application logic here
         Connection con=Conexion.getConnection();
+        
+        Alumno juan = new Alumno(1,35583190, "Amado", "Angela", LocalDate.of(1990, 12, 27), true);
+        AlumnoData alu=new AlumnoData();
+        ///alu.guardarAlumno(juan);
+        //alu.modificarAlumno(juan);
+        alu.eliminarAlumno(1);
     }
     
 }
