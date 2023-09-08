@@ -7,7 +7,9 @@ package universidadulp;
 
 import accesoAdatos.AlumnoData;
 import accesoAdatos.Conexion;
+import accesoAdatos.MateriaData;
 import entidades.Alumno;
+import entidades.Materia;
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.Month;
@@ -28,6 +30,9 @@ public class UniversidadUlp {
 //        Alumno alumnoEncontrado = alu.buscarAlumno(1);
 //        System.out.println("DNI: "+ alumnoEncontrado.getDni());
 //        System.out.println("Apellido: "+ alumnoEncontrado.getApellido());
+        Materia mat = new Materia("Programacion", 6, true);
+        MateriaData mate = new MateriaData();
+        mate.guardarMateria(mat);
         
         for(Alumno alumno:alu.listarAlumnos()){
             System.out.println(alumno.getApellido());
