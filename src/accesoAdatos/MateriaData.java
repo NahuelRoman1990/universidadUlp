@@ -6,6 +6,7 @@
 package accesoAdatos;
 
 
+import entidades.Alumno;
 import entidades.Materia;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -47,7 +48,7 @@ public class MateriaData {
                  JOptionPane.showMessageDialog(null, "Materia Guardada");
                  
              }
-             ps.close();
+             ps.close();               
          } catch (SQLException ex) {
              JOptionPane.showMessageDialog(null, "Error al acceder a la tabla materia");
          }
@@ -55,7 +56,27 @@ public class MateriaData {
      }
      
      public Materia buscarMateria(int id){
-         return null;
+           String sql = "SELECT nombre, año, estado FROM materia WHERE idMateria = ? AND estado = 1";
+        Materia materia = null;
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                materia = new Materia();
+                materia.setIdMateria(id);
+                materia.setNombre(rs.getString("nombre"));
+                materia.setAnioMateria(rs.getInt("año"));
+                materia.setActivo(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "No existe ese materia");
+            }
+            ps.close();
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla materia");
+        }
+        return materia;
 
      }
      
