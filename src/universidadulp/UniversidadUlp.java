@@ -28,7 +28,7 @@ public class UniversidadUlp {
 //        Alumno alumnoEncontrado = alu.buscarAlumno(1);
 //        System.out.println("DNI: "+ alumnoEncontrado.getDni());
 //        System.out.println("Apellido: "+ alumnoEncontrado.getApellido());
-       /// Materia mat = new Materia("Programacion", 6, true);
+        Materia mat = new Materia(1,"Programacion", 6, true);
         MateriaData mate = new MateriaData();
        // mate.guardarMateria(mat);
 
@@ -38,8 +38,10 @@ public class UniversidadUlp {
             System.out.println(alumno.getNombre());
             System.out.println(alumno.getFechaNac());
         }*/
-        Materia materiaEncontrada = mate.buscarMateria(1);
-        System.out.println("NOMBRE: "+ materiaEncontrada.getNombre()+" AÑO: "+ materiaEncontrada.getAnioMateria());
+        //Materia materiaEncontrada = mate.buscarMateria(1);
+        //System.out.println("NOMBRE: "+ materiaEncontrada.getNombre()+" AÑO: "+ materiaEncontrada.getAnioMateria());
+        
+        mate.modificarMateria(mat);
 
     }
 

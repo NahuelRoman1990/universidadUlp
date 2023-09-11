@@ -81,6 +81,19 @@ public class MateriaData {
      }
      
      public void modificarMateria(Materia materia){
+         String sql = "UPDATE materia SET nombre=?, año=? WHERE idMateria=?";
+         try {
+             PreparedStatement ps = con.prepareStatement(sql);
+             ps.setString(1, materia.getNombre());
+             ps.setInt(2, materia.getAnioMateria());
+             ps.setInt(3, materia.getIdMateria());
+             int exito = ps.executeUpdate();
+             if (exito ==1){
+                 JOptionPane.showMessageDialog(null, "Materia modificada. ");
+             }
+         } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla materia");
+         }
          
      }
      
