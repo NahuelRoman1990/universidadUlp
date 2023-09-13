@@ -114,7 +114,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmItemMateriaFormularioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmItemMateriaFormularioActionPerformed
-        // TODO add your handling code here:
+        jdEscritorio.removeAll();
+        jdEscritorio.repaint();
+        MenuMaterias mm = new MenuMaterias();
+        mm.setVisible(true);
+        jdEscritorio.add(mm);
+        jdEscritorio.moveToFront(mm);
+        
     }//GEN-LAST:event_jmItemMateriaFormularioActionPerformed
 
     private void jmItemAlumnoFormularioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmItemAlumnoFormularioActionPerformed
