@@ -100,6 +100,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jmConsultas.setText("Consultas");
 
         jmItemAlumnosPorMateria.setText("Alumnos por Materia");
+        jmItemAlumnosPorMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmItemAlumnosPorMateriaActionPerformed(evt);
+            }
+        });
         jmConsultas.add(jmItemAlumnosPorMateria);
 
         jMenuBar1.add(jmConsultas);
@@ -164,6 +169,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
     
     }//GEN-LAST:event_jmAdministracionActionPerformed
+
+    private void jmItemAlumnosPorMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmItemAlumnosPorMateriaActionPerformed
+        jdEscritorio.removeAll();
+        jdEscritorio.repaint();
+        AlumnoPorMateria apm = new AlumnoPorMateria();
+        apm.setVisible(true);
+        jdEscritorio.add(apm);
+        jdEscritorio.moveToFront(apm);
+    }//GEN-LAST:event_jmItemAlumnosPorMateriaActionPerformed
 
     /**
      * @param args the command line arguments
