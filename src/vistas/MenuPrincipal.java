@@ -34,7 +34,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jmMateria = new javax.swing.JMenu();
         jmItemMateriaFormulario = new javax.swing.JMenuItem();
         jmAdministracion = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        jmManejoIncripcion = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jmConsultas = new javax.swing.JMenu();
         jmItemAlumnosPorMateria = new javax.swing.JMenuItem();
@@ -79,8 +79,13 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
         jmAdministracion.setText("Administracion");
 
-        jMenuItem3.setText("Manejo de Inscripciones");
-        jmAdministracion.add(jMenuItem3);
+        jmManejoIncripcion.setText("Manejo de Inscripciones");
+        jmManejoIncripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmManejoIncripcionActionPerformed(evt);
+            }
+        });
+        jmAdministracion.add(jmManejoIncripcion);
 
         jMenuItem4.setText("Manipulacion de Notas");
         jmAdministracion.add(jMenuItem4);
@@ -133,6 +138,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jmItemAlumnoFormularioActionPerformed
 
+    private void jmManejoIncripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmManejoIncripcionActionPerformed
+        jdEscritorio.removeAll();
+        jdEscritorio.repaint();
+        ManejoDeInscripcion mi = new ManejoDeInscripcion();
+        mi.setVisible(true);
+        jdEscritorio.add(mi);
+        jdEscritorio.moveToFront(mi);
+    }//GEN-LAST:event_jmManejoIncripcionActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -170,7 +184,6 @@ public class MenuPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JDesktopPane jdEscritorio;
     private javax.swing.JMenu jmAdministracion;
@@ -179,6 +192,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmItemAlumnoFormulario;
     private javax.swing.JMenuItem jmItemAlumnosPorMateria;
     private javax.swing.JMenuItem jmItemMateriaFormulario;
+    private javax.swing.JMenuItem jmManejoIncripcion;
     private javax.swing.JMenu jmMateria;
     private javax.swing.JMenu jmSalir;
     // End of variables declaration//GEN-END:variables
