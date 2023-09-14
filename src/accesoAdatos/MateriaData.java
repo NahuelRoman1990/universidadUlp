@@ -12,6 +12,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -98,11 +99,46 @@ public class MateriaData {
      }
      
      public void eliminarMateria(int id){
+         String sql = "UPDATE materia SET estado=0 WHERE idMateria=?";
+         try {
+             PreparedStatement ps = con.prepareStatement(sql);
+             ps.setInt(1, id);
+             int exito = 1;
+             if (exito == 1) {
+
+                JOptionPane.showMessageDialog(null, "Materia eliminada");
+            }
+         } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla materia");
+         }
          
      }
      
      public List<Materia> listarMateria(){
-         return null;
+         String sql ="SELECT idMateria, nombre, año FROM materia WHERE estado=1";
+         ArrayList<Materia> materias = new ArrayList<>();
+         try {
+             PreparedStatement ps = con.prepareStatement(sql);
+             
+             ResultSet rs = ps.executeQuery();
+             while (rs.next()) {
+                 
+                 Materia materia = new Materia();
+                 materia.setIdMateria(rs.getInt("idMateria"));
+                 materia.setNombre(rs.getString("nombre"));
+                 materia.setAnioMateria(rs.getInt("año"));
+                 materia.setActivo(true);
+                 materias.add(materia);
+                 
+                 
+                 
+             }
+             ps.close();
+         } catch (SQLException ex) {
+             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla materia");
+         }
+         
+         return materias;
          
      }
 }
