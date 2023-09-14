@@ -49,7 +49,7 @@ public class InscripcionData {
     
     public void actualizarNota(int idAlumno, int idMateria, double nota){
         
-     String sql="UPDATE inscripcion SET nota = ? WHERE idAlumno = ? ANDA idMATERIA = ?";
+     String sql="UPDATE inscripcion SET nota = ? WHERE idAlumno = ? AND idMateria = ?";
         try {
             PreparedStatement ps=con.prepareStatement(sql);
             ps.setDouble(1, nota);
@@ -80,7 +80,7 @@ public class InscripcionData {
                 
             }
             ps.close();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripcion");
         }
     }
