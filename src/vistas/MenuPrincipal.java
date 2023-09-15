@@ -46,11 +46,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jdEscritorio.setLayout(jdEscritorioLayout);
         jdEscritorioLayout.setHorizontalGroup(
             jdEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 519, Short.MAX_VALUE)
         );
         jdEscritorioLayout.setVerticalGroup(
             jdEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 308, Short.MAX_VALUE)
+            .addGap(0, 502, Short.MAX_VALUE)
         );
 
         jmAlumno.setText("Alumno");
@@ -93,6 +93,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jmAdministracion.add(jmManejoIncripcion);
 
         jMenuItem4.setText("Manipulacion de Notas");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
         jmAdministracion.add(jMenuItem4);
 
         jMenuBar1.add(jmAdministracion);
@@ -118,11 +123,15 @@ public class MenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jdEscritorio)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jdEscritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jdEscritorio, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jdEscritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -160,12 +169,7 @@ public class MenuPrincipal extends javax.swing.JFrame {
     private void jmAdministracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmAdministracionActionPerformed
         // TODO add your handling code here:
                                                   
-        jdEscritorio.removeAll();
-        jdEscritorio.repaint();
-        ManipulacionNotas mn = new  ManipulacionNotas();
-        mn.setVisible(true);
-        jdEscritorio.add(mn);
-        jdEscritorio.moveToFront(mn);
+        
         
     
     }//GEN-LAST:event_jmAdministracionActionPerformed
@@ -178,6 +182,16 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jdEscritorio.add(apm);
         jdEscritorio.moveToFront(apm);
     }//GEN-LAST:event_jmItemAlumnosPorMateriaActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        // TODO add your handling code here:
+        jdEscritorio.removeAll();
+        jdEscritorio.repaint();
+        ManipulacionNotas mn = new  ManipulacionNotas();
+        mn.setVisible(true);
+        jdEscritorio.add(mn);
+        jdEscritorio.moveToFront(mn);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     /**
      * @param args the command line arguments
