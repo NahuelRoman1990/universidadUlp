@@ -59,6 +59,12 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
 
         jlSeleccionAlumno.setText("Seleccione un Alumno:");
 
+        jcbListaAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbListaAlumnoActionPerformed(evt);
+            }
+        });
+
         jLabel2.setFont(new java.awt.Font("Arial Black", 2, 14)); // NOI18N
         jLabel2.setText("Listado de Materias");
 
@@ -181,6 +187,10 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jrbMateriasNoInscriptasActionPerformed
 
+    private void jcbListaAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListaAlumnoActionPerformed
+        alu
+    }//GEN-LAST:event_jcbListaAlumnoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel2;
@@ -191,7 +201,7 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbAnularInscripcion;
     private javax.swing.JButton jbInscribir;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JComboBox<String> jcbListaAlumno;
+    private javax.swing.JComboBox<Alumno> jcbListaAlumno;
     private javax.swing.JLabel jlFormularioIncripcion;
     private javax.swing.JLabel jlSeleccionAlumno;
     private javax.swing.JRadioButton jrbMateriasInscriptas;
