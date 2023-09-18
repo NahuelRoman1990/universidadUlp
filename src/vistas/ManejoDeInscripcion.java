@@ -5,6 +5,8 @@
  */
 package vistas;
 
+import entidades.Alumno;
+
 /**
  *
  * @author roman
@@ -188,7 +190,7 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jrbMateriasNoInscriptasActionPerformed
 
     private void jcbListaAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListaAlumnoActionPerformed
-        alu
+        
     }//GEN-LAST:event_jcbListaAlumnoActionPerformed
 
 
