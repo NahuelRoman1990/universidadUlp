@@ -8,6 +8,7 @@ package vistas;
 import accesoAdatos.AlumnoData;
 import accesoAdatos.InscripcionData;
 import accesoAdatos.MateriaData;
+import entidades.Alumno;
 import entidades.Materia;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
@@ -38,8 +39,9 @@ public class AlumnoPorMateria extends javax.swing.JInternalFrame {
         for (Materia mate : md.listarMateria()) {
             
        
-            jcbListadoMaterias.addItem(mate.toString());
+            jcbListadoMaterias.addItem(mate);
         }
+        
     } 
     
     private void cabeceraListarMateria(){
@@ -146,7 +148,12 @@ public class AlumnoPorMateria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jcbListadoMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListadoMateriasActionPerformed
-
+      Materia materiaSelect =(Materia)jcbListadoMaterias.getSelectedItem();
+      List<Alumno> listaAlumno = idata.obtenerAlumnosXMaterias(materiaSelect.getIdMateria());
+      for(Alumno alumno:listaAlumno){
+          modelo.addRow(new Object[]{alumno.getIdAlumno(),alumno.getDni(),alumno.getApellido(),alumno.getNombre()});
+          
+      }
     }//GEN-LAST:event_jcbListadoMateriasActionPerformed
 
 
@@ -155,7 +162,7 @@ public class AlumnoPorMateria extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JComboBox<String> jcbListadoMaterias;
+    private javax.swing.JComboBox<Materia> jcbListadoMaterias;
     private javax.swing.JTable jtAlumno;
     // End of variables declaration//GEN-END:variables
 }
