@@ -7,7 +7,7 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
     public MenuAlumnos() {
         initComponents();
     }
-
+    //Hola como andas
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
