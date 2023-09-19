@@ -1,17 +1,33 @@
-
 package vistas;
 
+import accesoAdatos.AlumnoData;
+import accesoAdatos.InscripcionData;
+import accesoAdatos.MateriaData;
 import entidades.Alumno;
-
+import entidades.Materia;
+import javax.swing.table.DefaultTableModel;
 
 public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
 
- 
+    private InscripcionData idata = new InscripcionData();
+    private MateriaData md = new MateriaData();
+    private AlumnoData ad = new AlumnoData();
+    private DefaultTableModel modelo = new DefaultTableModel();
+
     public ManejoDeInscripcion() {
         initComponents();
+        cargarCombo();
     }
 
- 
+    private void cargarCombo() {
+
+        for (Alumno alu : ad.listarAlumnos()) {
+
+            jcbListaAlumno.addItem(alu);
+        }
+
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -25,7 +41,7 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
         jrbMateriasInscriptas = new javax.swing.JRadioButton();
         jrbMateriasNoInscriptas = new javax.swing.JRadioButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jtMaterias = new javax.swing.JTable();
         jbInscribir = new javax.swing.JButton();
         jbAnularInscripcion = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
@@ -71,7 +87,7 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jtMaterias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -90,11 +106,11 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
-        if (jTable2.getColumnModel().getColumnCount() > 0) {
-            jTable2.getColumnModel().getColumn(0).setResizable(false);
-            jTable2.getColumnModel().getColumn(1).setResizable(false);
-            jTable2.getColumnModel().getColumn(2).setResizable(false);
+        jScrollPane2.setViewportView(jtMaterias);
+        if (jtMaterias.getColumnModel().getColumnCount() > 0) {
+            jtMaterias.getColumnModel().getColumn(0).setResizable(false);
+            jtMaterias.getColumnModel().getColumn(1).setResizable(false);
+            jtMaterias.getColumnModel().getColumn(2).setResizable(false);
         }
 
         jbInscribir.setText("Inscribir");
@@ -169,15 +185,15 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jrbMateriasInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbMateriasInscriptasActionPerformed
-       
+
     }//GEN-LAST:event_jrbMateriasInscriptasActionPerformed
 
     private void jrbMateriasNoInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbMateriasNoInscriptasActionPerformed
-  
+
     }//GEN-LAST:event_jrbMateriasNoInscriptasActionPerformed
 
     private void jcbListaAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListaAlumnoActionPerformed
-        
+
     }//GEN-LAST:event_jcbListaAlumnoActionPerformed
 
 
@@ -186,7 +202,6 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JButton jbAnularInscripcion;
     private javax.swing.JButton jbInscribir;
     private javax.swing.JButton jbSalir;
@@ -195,5 +210,6 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jlSeleccionAlumno;
     private javax.swing.JRadioButton jrbMateriasInscriptas;
     private javax.swing.JRadioButton jrbMateriasNoInscriptas;
+    private javax.swing.JTable jtMaterias;
     // End of variables declaration//GEN-END:variables
 }

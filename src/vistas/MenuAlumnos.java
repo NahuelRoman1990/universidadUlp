@@ -1,12 +1,27 @@
 
 package vistas;
 
+import accesoAdatos.AlumnoData;
+import accesoAdatos.InscripcionData;
+import accesoAdatos.MateriaData;
+import entidades.Alumno;
+import entidades.Materia;
+import javax.swing.table.DefaultTableModel;
+
 public class MenuAlumnos extends javax.swing.JInternalFrame {
+    
+    private InscripcionData idata = new InscripcionData();
+    private MateriaData md = new MateriaData();
+    private AlumnoData ad = new AlumnoData();
+    
 
    
     public MenuAlumnos() {
         initComponents();
+        
     }
+    
+    
     //Hola como andas
    
     @SuppressWarnings("unchecked")
@@ -31,8 +46,8 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
         jtDocumento = new javax.swing.JTextField();
         jtApellido = new javax.swing.JTextField();
         jtNombre = new javax.swing.JTextField();
-        jcbEstado = new javax.swing.JComboBox<>();
-        jdatechooserFecha = new com.toedter.calendar.JDateChooser();
+        jdcFecha = new com.toedter.calendar.JDateChooser();
+        jrbEstado = new javax.swing.JRadioButton();
 
         jlAlumno.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jlAlumno.setText("Alumno");
@@ -43,11 +58,16 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Nombre:");
 
-        jLabel2.setText("Estado:");
+        jLabel2.setText("Activo:");
 
         jLabel3.setText("Fecha de Nacimiento:");
 
         jbBuscar.setText("Buscar");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
 
         jbNuevo.setText("Nuevo");
 
@@ -68,10 +88,9 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
             }
         });
 
-        jcbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo", " ", " " }));
-        jcbEstado.addActionListener(new java.awt.event.ActionListener() {
+        jrbEstado.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jcbEstadoActionPerformed(evt);
+                jrbEstadoActionPerformed(evt);
             }
         });
 
@@ -108,7 +127,6 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jcbEstado, javax.swing.GroupLayout.Alignment.LEADING, 0, 94, Short.MAX_VALUE)
                             .addComponent(jtNombre, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtApellido, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jtDocumento))
@@ -117,41 +135,39 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
                         .addGap(36, 36, 36))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jrbEstado)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jbGuardar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jbSalir))
-                            .addComponent(jdatechooserFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 58, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(jlAlumno)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlDocumento)
+                    .addComponent(jbBuscar)
+                    .addComponent(jtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jlApellido)
+                    .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jrbEstado))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jlDocumento)
-                            .addComponent(jbBuscar)
-                            .addComponent(jtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(17, 17, 17)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jlApellido)
-                            .addComponent(jtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jcbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                        .addComponent(jLabel3))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jdatechooserFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jdcFecha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbNuevo)
@@ -171,9 +187,36 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtDocumentoActionPerformed
 
-    private void jcbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbEstadoActionPerformed
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jcbEstadoActionPerformed
+        
+        // se rompe cuando el dni no existe - Solucionar 
+        
+        int dni = Integer.parseInt(jtDocumento.getText());
+        
+        Alumno alu = new Alumno();
+        alu = ad.buscarAlumnoPorDni(dni);
+        
+        jtApellido.setText(alu.getApellido()); 
+        jtNombre.setText(alu.getNombre());
+        
+        if (alu.isActivo()){
+            jrbEstado.setSelected(true);
+            
+        }else{
+            jrbEstado.setSelected(false);
+        }
+        
+        
+      // averiguar como convertir LocalDate a DAte 
+        //jdcFecha.setDate(alu.getFechaNac());
+        
+        
+    }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jrbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jrbEstadoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -189,11 +232,11 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbNuevo;
     private javax.swing.JButton jbSalir;
-    private javax.swing.JComboBox<String> jcbEstado;
-    private com.toedter.calendar.JDateChooser jdatechooserFecha;
+    private com.toedter.calendar.JDateChooser jdcFecha;
     private javax.swing.JLabel jlAlumno;
     private javax.swing.JLabel jlApellido;
     private javax.swing.JLabel jlDocumento;
+    private javax.swing.JRadioButton jrbEstado;
     private javax.swing.JTextField jtApellido;
     private javax.swing.JTextField jtDocumento;
     private javax.swing.JTextField jtNombre;

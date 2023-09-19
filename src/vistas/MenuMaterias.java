@@ -5,11 +5,16 @@
  */
 package vistas;
 
+import accesoAdatos.MateriaData;
+import entidades.Materia;
+
 /**
  *
  * @author Erni
  */
 public class MenuMaterias extends javax.swing.JInternalFrame {
+    private MateriaData md = new MateriaData();
+    
 
     /**
      * Creates new form MenuMaterias
@@ -40,7 +45,7 @@ public class MenuMaterias extends javax.swing.JInternalFrame {
         jtCodigo = new javax.swing.JTextField();
         jtNombre = new javax.swing.JTextField();
         jtAnio = new javax.swing.JTextField();
-        jcbEstado = new javax.swing.JComboBox<>();
+        jrbEstado = new javax.swing.JRadioButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Materia");
@@ -67,6 +72,11 @@ public class MenuMaterias extends javax.swing.JInternalFrame {
         jBSalir.setText("Salir");
 
         jbBuscar.setText("Buscar");
+        jbBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbBuscarActionPerformed(evt);
+            }
+        });
 
         jtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -80,7 +90,11 @@ public class MenuMaterias extends javax.swing.JInternalFrame {
             }
         });
 
-        jcbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
+        jrbEstado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jrbEstadoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -100,13 +114,17 @@ public class MenuMaterias extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel4)
                                 .addComponent(jLabel5))
                             .addGap(54, 54, 54)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jtCodigo)
-                                .addComponent(jtNombre)
-                                .addComponent(jtAnio)
-                                .addComponent(jcbEstado, 0, 96, Short.MAX_VALUE))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jbBuscar))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
+                                        .addComponent(jtNombre)
+                                        .addComponent(jtAnio))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jbBuscar))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jrbEstado)
+                                    .addGap(0, 0, Short.MAX_VALUE))))
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(jbNuevo)
@@ -140,14 +158,14 @@ public class MenuMaterias extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jcbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                    .addComponent(jrbEstado))
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbNuevo)
                     .addComponent(jbEliminar)
                     .addComponent(jbGuardar)
                     .addComponent(jBSalir))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         pack();
@@ -165,6 +183,21 @@ public class MenuMaterias extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jbEliminarActionPerformed
 
+    private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
+        // TODO add your handling code here:
+        int id = Integer.parseInt(jtCodigo.getText());
+        Materia mate = new Materia();
+        mate = md.buscarMateria(id);
+        
+        jtAnio.setText(mate.getAnioMateria()+"");
+        jtNombre.setText(mate.getNombre());
+        jrbEstado.setSelected(mate.isActivo());
+    }//GEN-LAST:event_jbBuscarActionPerformed
+
+    private void jrbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbEstadoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jrbEstadoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBSalir;
@@ -177,7 +210,7 @@ public class MenuMaterias extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbNuevo;
-    private javax.swing.JComboBox<String> jcbEstado;
+    private javax.swing.JRadioButton jrbEstado;
     private javax.swing.JTextField jtAnio;
     private javax.swing.JTextField jtCodigo;
     private javax.swing.JTextField jtNombre;

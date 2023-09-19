@@ -148,6 +148,11 @@ public class AlumnoPorMateria extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jcbListadoMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListadoMateriasActionPerformed
+      
+//        if (jtAlumno.getRowCount()>=0){
+//          borrarFilas();  
+//      }
+            
       Materia materiaSelect =(Materia)jcbListadoMaterias.getSelectedItem();
       List<Alumno> listaAlumno = idata.obtenerAlumnosXMaterias(materiaSelect.getIdMateria());
       for(Alumno alumno:listaAlumno){
@@ -165,4 +170,14 @@ public class AlumnoPorMateria extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<Materia> jcbListadoMaterias;
     private javax.swing.JTable jtAlumno;
     // End of variables declaration//GEN-END:variables
+
+private void borrarFilas(){
+    int fila = jtAlumno.getRowCount()-1;
+    for(;fila>=0;fila--){
+        modelo.removeRow(fila);
+    }
+    
+}
+
+
 }

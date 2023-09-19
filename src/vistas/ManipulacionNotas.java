@@ -5,19 +5,44 @@
  */
 package vistas;
 
+import accesoAdatos.AlumnoData;
+import accesoAdatos.InscripcionData;
+import accesoAdatos.MateriaData;
 import entidades.Alumno;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Erni
  */
 public class ManipulacionNotas extends javax.swing.JInternalFrame {
+    
+    private InscripcionData idata = new InscripcionData();
+    private MateriaData md = new MateriaData();
+    private AlumnoData ad = new AlumnoData();
+    private DefaultTableModel modelo = new DefaultTableModel();
 
-    /**
-     * Creates new form ManipulacionNotas
-     */
+   
     public ManipulacionNotas() {
         initComponents();
+        cargarCombo();
+        cargarCabecera();
+    }
+    
+    private void cargarCombo() {
+
+        for (Alumno alu : ad.listarAlumnos()) {
+
+          jcbAlumno.addItem(alu);
+        }
+
+    }
+    
+    private void cargarCabecera(){
+        modelo.addColumn("Código");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Nota");
+        jtInscripcion.setModel(modelo);
     }
 
     /**
@@ -32,7 +57,7 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jtTabla = new javax.swing.JTable();
+        jtInscripcion = new javax.swing.JTable();
         jbGuardar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
         jcbAlumno = new javax.swing.JComboBox<>();
@@ -42,7 +67,7 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Seleccione un alumno");
 
-        jtTabla.setModel(new javax.swing.table.DefaultTableModel(
+        jtInscripcion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -53,7 +78,7 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jtTabla);
+        jScrollPane1.setViewportView(jtInscripcion);
 
         jbGuardar.setText("Guardar");
 
@@ -75,16 +100,15 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
                         .addComponent(jLabel2)
                         .addGap(85, 85, 85)
                         .addComponent(jcbAlumno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 0, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(160, 160, 160)
-                            .addComponent(jbGuardar)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jbSalir))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(160, 160, 160)
+                        .addComponent(jbGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbSalir)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -124,6 +148,6 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<Alumno> jcbAlumno;
-    private javax.swing.JTable jtTabla;
+    private javax.swing.JTable jtInscripcion;
     // End of variables declaration//GEN-END:variables
 }
