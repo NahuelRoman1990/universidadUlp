@@ -26,12 +26,16 @@ public class UniversidadUlp {
         AlumnoData alu = new AlumnoData();
         ///alu.guardarAlumno(juan);
         //alu.modificarAlumno(juan);
-        alu.eliminarAlumno(5);
-//        Alumno alumnoEncontrado = alu.buscarAlumno(1);
-//        System.out.println("DNI: "+ alumnoEncontrado.getDni());
-//        System.out.println("Apellido: "+ alumnoEncontrado.getApellido());
+        //alu.eliminarAlumno(5);
+        
+        Alumno alumnoEncontrado = alu.buscarAlumno(3);
+        System.out.println("Buscar alumno");
+        System.out.println("DNI: "+ alumnoEncontrado.getDni());
+        System.out.println("Apellido: "+ alumnoEncontrado.getApellido());
+        System.out.println("fin---");
         Materia mat = new Materia(1, "Programacion", 6, true);
         MateriaData mate = new MateriaData();
+        
         // mate.guardarMateria(mat);
 
         /*for(Alumno alumno:alu.listarAlumnos()){

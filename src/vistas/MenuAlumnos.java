@@ -244,6 +244,7 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling code here:
+        //verificar
         try{
         int dni = Integer.parseInt(jtDocumento.getText());
         Alumno alumno = ad.buscarAlumno(dni);
