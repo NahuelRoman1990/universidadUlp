@@ -6,6 +6,7 @@ import accesoAdatos.InscripcionData;
 import accesoAdatos.MateriaData;
 import entidades.Alumno;
 import entidades.Materia;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class MenuAlumnos extends javax.swing.JInternalFrame {
@@ -70,8 +71,18 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
         });
 
         jbNuevo.setText("Nuevo");
+        jbNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNuevoActionPerformed(evt);
+            }
+        });
 
         jbEliminar.setText("Eliminar");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
 
         jbGuardar.setText("Guardar");
         jbGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -161,9 +172,9 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
                     .addComponent(jLabel1)
                     .addComponent(jtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jrbEstado))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jrbEstado)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -192,6 +203,7 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
         
         // se rompe cuando el dni no existe - Solucionar 
         
+        try{
         int dni = Integer.parseInt(jtDocumento.getText());
         
         Alumno alu = new Alumno();
@@ -206,17 +218,42 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
         }else{
             jrbEstado.setSelected(false);
         }
+                
+      // LocalDate a Date java.sql.Date.valueOf(alu.getFechaNac())
         
-        
-      // averiguar como convertir LocalDate a DAte 
-        //jdcFecha.setDate(alu.getFechaNac());
-        
-        
+        jdcFecha.setDate(java.sql.Date.valueOf(alu.getFechaNac()));
+        }
+        catch(NumberFormatException nf){
+            JOptionPane.showMessageDialog(this, "Se debe ingresar un numero entero en el campo Documento");
+            jtDocumento.setText("");
+        }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jrbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbEstadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jrbEstadoActionPerformed
+
+    private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
+        // TODO add your handling code here:
+        jtDocumento.setText("");
+        jtApellido.setText("");
+        jtNombre.setText("");
+        jrbEstado.setSelected(false);
+        jdcFecha.setDate(null);
+    }//GEN-LAST:event_jbNuevoActionPerformed
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+        // TODO add your handling code here:
+        try{
+        int dni = Integer.parseInt(jtDocumento.getText());
+        Alumno alumno = ad.buscarAlumno(dni);
+        int id = alumno.getIdAlumno();
+        ad.eliminarAlumno(id);
+        }catch(NumberFormatException nf){
+            JOptionPane.showMessageDialog(this, "Se debe ingresar un numero entero en el campo Documento");
+            jtDocumento.setText("");
+        }
+    }//GEN-LAST:event_jbEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

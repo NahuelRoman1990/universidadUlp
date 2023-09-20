@@ -22,11 +22,11 @@ public class UniversidadUlp {
         // TODO code application logic here
         Connection con = Conexion.getConnection();
 
-        Alumno juan = new Alumno(1, 35583190, "Amado", "Angela", LocalDate.of(1990, 12, 27), true);
+        //Alumno juan = new Alumno(1, 35583190, "Amado", "Angela", LocalDate.of(1990, 12, 27), true);
         AlumnoData alu = new AlumnoData();
         ///alu.guardarAlumno(juan);
         //alu.modificarAlumno(juan);
-        //alu.eliminarAlumno(1);
+        alu.eliminarAlumno(5);
 //        Alumno alumnoEncontrado = alu.buscarAlumno(1);
 //        System.out.println("DNI: "+ alumnoEncontrado.getDni());
 //        System.out.println("Apellido: "+ alumnoEncontrado.getApellido());
@@ -50,7 +50,7 @@ public class UniversidadUlp {
 //            System.out.println("Año: "+materia.getAnioMateria());
 //            System.out.println("-------");
 //        }
-        Inscripcion insc = new Inscripcion(juan, mat, 8);
+       // Inscripcion insc = new Inscripcion(juan, mat, 8);
         InscripcionData idata = new InscripcionData();
         //idata.guardarInscripcion(insc);
 

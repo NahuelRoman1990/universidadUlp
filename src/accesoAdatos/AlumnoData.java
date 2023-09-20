@@ -88,11 +88,11 @@ public class AlumnoData {
                 JOptionPane.showMessageDialog(null, "Alumno Eliminado");
             }
         } catch (SQLException ex) {
-
+               JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno");
         }
 
     }
-
+//revisar si funciona
     public Alumno buscarAlumno(int id) {
         String sql = "SELECT dni, apellido, nombre, fechaNacimiento FROM alumno WHERE idAlumno = ? AND estado = 1";
         Alumno alumno = null;
