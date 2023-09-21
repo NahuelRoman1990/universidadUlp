@@ -247,8 +247,10 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
         //verificar
         try{
         int dni = Integer.parseInt(jtDocumento.getText());
-        Alumno alumno = ad.buscarAlumno(dni);
+        Alumno alumno = ad.buscarAlumnoPorDni(dni);
+        
         int id = alumno.getIdAlumno();
+        
         ad.eliminarAlumno(id);
         }catch(NumberFormatException nf){
             JOptionPane.showMessageDialog(this, "Se debe ingresar un numero entero en el campo Documento");
