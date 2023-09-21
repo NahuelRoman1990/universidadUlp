@@ -74,6 +74,11 @@ public class MenuMaterias extends javax.swing.JInternalFrame {
         });
 
         jbGuardar.setText("Guardar");
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
 
         jBSalir.setText("Salir");
         jBSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -234,6 +239,29 @@ public class MenuMaterias extends javax.swing.JInternalFrame {
         jtNombre.setText("");
         jrbEstado.setSelected(false);
     }//GEN-LAST:event_jbNuevoActionPerformed
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        try {
+            if (jtNombre.getText().isEmpty() || jtAnio.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No debe haber campos vacios", "Error                       ", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            String nombre = jtNombre.getText();
+            int anio = Integer.parseInt(jtAnio.getText());
+
+            Materia materia = new Materia(nombre, anio, true);
+            md.guardarMateria(materia);
+            jtAnio.setText("");
+            jtCodigo.setText("");
+            jtNombre.setText("");
+            jrbEstado.setSelected(false);
+        } catch (NumberFormatException nf) {
+            JOptionPane.showMessageDialog(this, "El año debe ser un numero entero");
+        } catch (NullPointerException np) {
+
+        }
+
+    }//GEN-LAST:event_jbGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
