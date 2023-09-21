@@ -15,6 +15,7 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
     private MateriaData md = new MateriaData();
     private AlumnoData ad = new AlumnoData();
     private DefaultTableModel modelo = new DefaultTableModel();
+   
 
     public ManejoDeInscripcion() {
         initComponents();
@@ -207,6 +208,7 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
         jrbMateriasInscriptas.setSelected(false);
         jbAnularInscripcion.setEnabled(false);
         jbInscribir.setEnabled(true);
+        
         Alumno alumno = (Alumno) jcbListaAlumno.getSelectedItem();
         List<Materia> materias = idata.obtenerMateriaNoCursadas(alumno.getIdAlumno());
         for (Materia mate : materias){ 
