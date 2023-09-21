@@ -7,14 +7,15 @@ package vistas;
 
 import accesoAdatos.MateriaData;
 import entidades.Materia;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Erni
  */
 public class MenuMaterias extends javax.swing.JInternalFrame {
+
     private MateriaData md = new MateriaData();
-    
 
     /**
      * Creates new form MenuMaterias
@@ -59,6 +60,11 @@ public class MenuMaterias extends javax.swing.JInternalFrame {
         jLabel5.setText("Estado:");
 
         jbNuevo.setText("Nuevo");
+        jbNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbNuevoActionPerformed(evt);
+            }
+        });
 
         jbEliminar.setText("Eliminar");
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -70,6 +76,11 @@ public class MenuMaterias extends javax.swing.JInternalFrame {
         jbGuardar.setText("Guardar");
 
         jBSalir.setText("Salir");
+        jBSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBSalirActionPerformed(evt);
+            }
+        });
 
         jbBuscar.setText("Buscar");
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -180,23 +191,49 @@ public class MenuMaterias extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtAnioActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-        // TODO add your handling code here:
+        try {
+
+            int codigo = Integer.parseInt(jtCodigo.getText());
+            md.eliminarMateria(codigo);
+            jtAnio.setText("");
+            jtCodigo.setText("");
+            jtNombre.setText("");
+            jrbEstado.setSelected(false);
+        } catch (NumberFormatException nf) {
+            JOptionPane.showMessageDialog(this, "Ingrese el codigo de materia que desea eliminar");
+        }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        // TODO add your handling code here:
-        int id = Integer.parseInt(jtCodigo.getText());
-        Materia mate = new Materia();
-        mate = md.buscarMateria(id);
-        
-        jtAnio.setText(mate.getAnioMateria()+"");
-        jtNombre.setText(mate.getNombre());
-        jrbEstado.setSelected(mate.isActivo());
-    }//GEN-LAST:event_jbBuscarActionPerformed
+        try {
+            int id = Integer.parseInt(jtCodigo.getText());
 
+            Materia mate = new Materia();
+            mate = md.buscarMateria(id);
+            jtAnio.setText(mate.getAnioMateria() + "");
+            jtNombre.setText(mate.getNombre());
+            jrbEstado.setSelected(mate.isActivo());
+        } catch (NullPointerException np) {
+            jtCodigo.setText("");
+        } catch (NumberFormatException nf) {
+            jtCodigo.setText("");
+            JOptionPane.showMessageDialog(this, "Ingrese un codigo valido");
+    }//GEN-LAST:event_jbBuscarActionPerformed
+    }
     private void jrbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbEstadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jrbEstadoActionPerformed
+
+    private void jBSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBSalirActionPerformed
+        dispose();
+    }//GEN-LAST:event_jBSalirActionPerformed
+
+    private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
+        jtAnio.setText("");
+        jtCodigo.setText("");
+        jtNombre.setText("");
+        jrbEstado.setSelected(false);
+    }//GEN-LAST:event_jbNuevoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

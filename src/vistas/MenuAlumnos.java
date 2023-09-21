@@ -1,4 +1,3 @@
-
 package vistas;
 
 import accesoAdatos.AlumnoData;
@@ -6,25 +5,23 @@ import accesoAdatos.InscripcionData;
 import accesoAdatos.MateriaData;
 import entidades.Alumno;
 import entidades.Materia;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class MenuAlumnos extends javax.swing.JInternalFrame {
-    
+
     private InscripcionData idata = new InscripcionData();
     private MateriaData md = new MateriaData();
     private AlumnoData ad = new AlumnoData();
-    
 
-   
     public MenuAlumnos() {
         initComponents();
-        
+
     }
-    
-    
+
     //Hola como andas
-   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -92,6 +89,11 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
         });
 
         jbSalir.setText("Salir");
+        jbSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbSalirActionPerformed(evt);
+            }
+        });
 
         jtDocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,30 +112,10 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(165, 165, 165)
-                .addComponent(jlAlumno)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jlApellido)
-                                        .addComponent(jLabel2))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jlDocumento)
-                                        .addGap(1, 1, 1)))
-                                .addGap(1, 1, 1))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(47, 47, 47)
-                        .addComponent(jbNuevo)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jbEliminar)))
+                .addGap(47, 47, 47)
+                .addComponent(jbNuevo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jbEliminar)
                 .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -150,9 +132,27 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jbGuardar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jbSalir))
-                            .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jbSalir)))
                         .addGap(0, 58, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1)
+                                .addComponent(jlApellido)
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jlDocumento)
+                                .addGap(1, 1, 1)))
+                        .addGap(1, 1, 1)))
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jdcFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlAlumno))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -191,7 +191,24 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        // TODO add your handling code here:
+        try {
+               if(jtNombre.getText().isEmpty() || jtApellido.getText().isEmpty()  || jtDocumento.getText().isEmpty()){
+             JOptionPane.showMessageDialog(null, "No debe haber campos vacios", "Error                       ", JOptionPane.ERROR_MESSAGE);  
+             return;
+               }
+        int documento = Integer.parseInt(jtDocumento.getText());
+        String apellido = jtApellido.getText();
+        String nombre = jtNombre.getText();
+        Boolean activo = jrbEstado.isSelected();
+        LocalDate fechaNacimiento = jdcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        
+        Alumno alumno = new Alumno(documento, apellido, nombre, fechaNacimiento, true);
+        ad.guardarAlumno(alumno);
+         } catch (NumberFormatException nf) {
+             JOptionPane.showMessageDialog(this, "El documento debe ser numeros enteros");
+        } catch(NullPointerException np){
+            JOptionPane.showMessageDialog(this,"Completa la fecha formato dd/mm/aaaa");
+        }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
     private void jtDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtDocumentoActionPerformed
@@ -200,30 +217,27 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
 
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         // TODO add your handling code here:
-        
+
         // se rompe cuando el dni no existe - Solucionar 
-        
-        try{
-        int dni = Integer.parseInt(jtDocumento.getText());
-        
-        Alumno alu = new Alumno();
-        alu = ad.buscarAlumnoPorDni(dni);
-        
-        jtApellido.setText(alu.getApellido()); 
-        jtNombre.setText(alu.getNombre());
-        
-        if (alu.isActivo()){
-            jrbEstado.setSelected(true);
-            
-        }else{
-            jrbEstado.setSelected(false);
-        }
-                
-      // LocalDate a Date java.sql.Date.valueOf(alu.getFechaNac())
-        
-        jdcFecha.setDate(java.sql.Date.valueOf(alu.getFechaNac()));
-        }
-        catch(NumberFormatException nf){
+        try {
+            int dni = Integer.parseInt(jtDocumento.getText());
+
+            Alumno alu = new Alumno();
+            alu = ad.buscarAlumnoPorDni(dni);
+
+            jtApellido.setText(alu.getApellido());
+            jtNombre.setText(alu.getNombre());
+
+            if (alu.isActivo()) {
+                jrbEstado.setSelected(true);
+
+            } else {
+                jrbEstado.setSelected(false);
+            }
+
+            // LocalDate a Date java.sql.Date.valueOf(alu.getFechaNac())
+            jdcFecha.setDate(java.sql.Date.valueOf(alu.getFechaNac()));
+        } catch (NumberFormatException nf) {
             JOptionPane.showMessageDialog(this, "Se debe ingresar un numero entero en el campo Documento");
             jtDocumento.setText("");
         }
@@ -245,18 +259,22 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling code here:
         //verificar
-        try{
-        int dni = Integer.parseInt(jtDocumento.getText());
-        Alumno alumno = ad.buscarAlumnoPorDni(dni);
-        
-        int id = alumno.getIdAlumno();
-        
-        ad.eliminarAlumno(id);
-        }catch(NumberFormatException nf){
+        try {
+            int dni = Integer.parseInt(jtDocumento.getText());
+            Alumno alumno = ad.buscarAlumnoPorDni(dni);
+
+            int id = alumno.getIdAlumno();
+
+            ad.eliminarAlumno(id);
+        } catch (NumberFormatException nf) {
             JOptionPane.showMessageDialog(this, "Se debe ingresar un numero entero en el campo Documento");
             jtDocumento.setText("");
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
+
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+      dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
