@@ -4,9 +4,11 @@ import accesoAdatos.AlumnoData;
 import accesoAdatos.InscripcionData;
 import accesoAdatos.MateriaData;
 import entidades.Alumno;
+import entidades.Inscripcion;
 import entidades.Materia;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
@@ -15,22 +17,21 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
     private MateriaData md = new MateriaData();
     private AlumnoData ad = new AlumnoData();
     private DefaultTableModel modelo = new DefaultTableModel();
-   
 
     public ManejoDeInscripcion() {
         initComponents();
         cargarCombo();
         cargarCabecera();
     }
-    
-   private void cargarCabecera(){
+
+    private void cargarCabecera() {
         modelo.addColumn("Id");
         modelo.addColumn("Nombre");
         modelo.addColumn("Año");
-        
+
         jtMaterias.setModel(modelo);
-       
-   }
+
+    }
 
     private void cargarCombo() {
 
@@ -40,7 +41,36 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
         }
 
     }
+    
+    private void cargarMateriasNoInscriptas(){
+        jrbMateriasInscriptas.setSelected(false);
+        jbAnularInscripcion.setEnabled(false);
+        jbInscribir.setEnabled(true);
+        borrarFilas();
 
+        //falta borrar la lista cada vez que se cargue
+        Alumno alumno = (Alumno) jcbListaAlumno.getSelectedItem();
+        List<Materia> materias = idata.obtenerMateriaNoCursadas(alumno.getIdAlumno());
+        for (Materia mate : materias) {
+            modelo.addRow(new Object[]{mate.getIdMateria(), mate.getNombre(), mate.getAnioMateria()});
+
+        }
+    }
+    
+    private void cargarMateriasInscriptas(){
+        jrbMateriasNoInscriptas.setSelected(false);
+        jbInscribir.setEnabled(false);
+        jbAnularInscripcion.setEnabled(true);
+        borrarFilas();
+
+        Alumno alumno = (Alumno) jcbListaAlumno.getSelectedItem();
+        //borrar la lista 
+        List<Materia> materias = idata.obtenerMateriasCursadas(alumno.getIdAlumno());
+        for (Materia mate : materias) {
+            modelo.addRow(new Object[]{mate.getIdMateria(), mate.getNombre(), mate.getAnioMateria()});
+
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -127,6 +157,11 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
         }
 
         jbInscribir.setText("Inscribir");
+        jbInscribir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbInscribirActionPerformed(evt);
+            }
+        });
 
         jbAnularInscripcion.setText("Anular Inscripcion");
         jbAnularInscripcion.addActionListener(new java.awt.event.ActionListener() {
@@ -208,56 +243,65 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jrbMateriasInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbMateriasInscriptasActionPerformed
-        jrbMateriasNoInscriptas.setSelected(false);
-        jbInscribir.setEnabled(false);
-        jbAnularInscripcion.setEnabled(true);
-        borrarFilas();
-        
-        Alumno alumno = (Alumno) jcbListaAlumno.getSelectedItem();
-        //borrar la lista 
-        List<Materia> materias = idata.obtenerMateriasCursadas(alumno.getIdAlumno());
-        for (Materia mate : materias){ 
-            modelo.addRow(new Object[]{mate.getIdMateria(),mate.getNombre(),mate.getAnioMateria()});
-
-        }
+        cargarMateriasInscriptas();
     }//GEN-LAST:event_jrbMateriasInscriptasActionPerformed
 
     private void jrbMateriasNoInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbMateriasNoInscriptasActionPerformed
-        jrbMateriasInscriptas.setSelected(false);
-        jbAnularInscripcion.setEnabled(false);
-        jbInscribir.setEnabled(true);
-        borrarFilas();
-        
-        
-        //falta borrar la lista cada vez que se cargue
-        Alumno alumno = (Alumno) jcbListaAlumno.getSelectedItem();
-        List<Materia> materias = idata.obtenerMateriaNoCursadas(alumno.getIdAlumno());
-        for (Materia mate : materias){ 
-            modelo.addRow(new Object[]{mate.getIdMateria(),mate.getNombre(),mate.getAnioMateria()});
-
-        }
+        cargarMateriasNoInscriptas();
 
     }//GEN-LAST:event_jrbMateriasNoInscriptasActionPerformed
 
-    private void borrarFilas(){
-    int fila = jtMaterias.getRowCount()-1;
-    for(;fila>=0;fila--){
-        modelo.removeRow(fila);
+    private void borrarFilas() {
+        int fila = jtMaterias.getRowCount() - 1;
+        for (; fila >= 0; fila--) {
+            modelo.removeRow(fila);
+        }
+
     }
-    
-}
-    
+
     private void jcbListaAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListaAlumnoActionPerformed
 
     }//GEN-LAST:event_jcbListaAlumnoActionPerformed
 
     private void jbAnularInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAnularInscripcionActionPerformed
-
+         int fila = jtMaterias.getSelectedRow();
+        if (fila != -1) {
+            int idmate = (Integer) jtMaterias.getValueAt(fila, 0);
+            Materia materia = md.buscarMateria(idmate);
+            Alumno alumno = (Alumno) jcbListaAlumno.getSelectedItem();
+            int idalum = alumno.getIdAlumno();
+            idata.bajaInscripcionMateria(idalum, idmate);
+            borrarFilas();
+            cargarMateriasInscriptas();
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una materia");
+        }
     }//GEN-LAST:event_jbAnularInscripcionActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jbInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInscribirActionPerformed
+        int fila = jtMaterias.getSelectedRow();
+        if (fila != -1) {
+            int idmate = (Integer) jtMaterias.getValueAt(fila, 0);
+            Materia materia = md.buscarMateria(idmate);
+            Alumno alumno = (Alumno) jcbListaAlumno.getSelectedItem();
+            Inscripcion inscripcion = new Inscripcion();
+            inscripcion.setMateria(materia);
+            inscripcion.setAlumno(alumno);
+            idata.guardarInscripcion(inscripcion);
+            borrarFilas();
+            cargarMateriasNoInscriptas();
+            
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione una materia");
+        }
+
+
+    }//GEN-LAST:event_jbInscribirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
