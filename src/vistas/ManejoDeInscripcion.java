@@ -20,7 +20,17 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
     public ManejoDeInscripcion() {
         initComponents();
         cargarCombo();
+        cargarCabecera();
     }
+    
+   private void cargarCabecera(){
+        modelo.addColumn("Id");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Año");
+        
+        jtMaterias.setModel(modelo);
+       
+   }
 
     private void cargarCombo() {
 
@@ -201,14 +211,25 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
         jrbMateriasNoInscriptas.setSelected(false);
         jbInscribir.setEnabled(false);
         jbAnularInscripcion.setEnabled(true);
+        borrarFilas();
+        
         Alumno alumno = (Alumno) jcbListaAlumno.getSelectedItem();
+        //borrar la lista 
+        List<Materia> materias = idata.obtenerMateriasCursadas(alumno.getIdAlumno());
+        for (Materia mate : materias){ 
+            modelo.addRow(new Object[]{mate.getIdMateria(),mate.getNombre(),mate.getAnioMateria()});
+
+        }
     }//GEN-LAST:event_jrbMateriasInscriptasActionPerformed
 
     private void jrbMateriasNoInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbMateriasNoInscriptasActionPerformed
         jrbMateriasInscriptas.setSelected(false);
         jbAnularInscripcion.setEnabled(false);
         jbInscribir.setEnabled(true);
+        borrarFilas();
         
+        
+        //falta borrar la lista cada vez que se cargue
         Alumno alumno = (Alumno) jcbListaAlumno.getSelectedItem();
         List<Materia> materias = idata.obtenerMateriaNoCursadas(alumno.getIdAlumno());
         for (Materia mate : materias){ 
@@ -218,6 +239,14 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_jrbMateriasNoInscriptasActionPerformed
 
+    private void borrarFilas(){
+    int fila = jtMaterias.getRowCount()-1;
+    for(;fila>=0;fila--){
+        modelo.removeRow(fila);
+    }
+    
+}
+    
     private void jcbListaAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListaAlumnoActionPerformed
 
     }//GEN-LAST:event_jcbListaAlumnoActionPerformed
