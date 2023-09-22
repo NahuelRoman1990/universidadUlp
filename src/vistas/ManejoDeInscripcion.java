@@ -260,7 +260,12 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
     }
 
     private void jcbListaAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListaAlumnoActionPerformed
-
+     if(jrbMateriasNoInscriptas.isSelected()){
+         cargarMateriasNoInscriptas();
+         
+     }else if(jrbMateriasInscriptas.isSelected()){
+         cargarMateriasInscriptas();
+     }
     }//GEN-LAST:event_jcbListaAlumnoActionPerformed
 
     private void jbAnularInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAnularInscripcionActionPerformed

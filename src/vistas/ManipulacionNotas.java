@@ -9,7 +9,11 @@ import accesoAdatos.AlumnoData;
 import accesoAdatos.InscripcionData;
 import accesoAdatos.MateriaData;
 import entidades.Alumno;
+import entidades.Inscripcion;
+import entidades.Materia;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import vistas.ManejoDeInscripcion;
 
 /**
  *
@@ -27,6 +31,9 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
         initComponents();
         cargarCombo();
         cargarCabecera();
+        
+       
+        
     }
     
     private void cargarCombo() {
@@ -44,6 +51,24 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
         modelo.addColumn("Nota");
         jtInscripcion.setModel(modelo);
     }
+    private void borrarFilas() {
+        int fila = jtInscripcion.getRowCount() - 1;
+        for (; fila >= 0; fila--) {
+            modelo.removeRow(fila);
+        }
+
+    }
+     private void cargarMateriasInscriptas(){
+        borrarFilas();
+
+        Alumno alumno = (Alumno) jcbAlumno.getSelectedItem();
+        //borrar la lista 
+        List<Inscripcion> inscripcion = idata.obtenerInscripcionPorAlumno(alumno.getIdAlumno());
+        for (Inscripcion insc : inscripcion) {
+            modelo.addRow(new Object[]{insc.getIdInscripcion(), insc.getMateria().getNombre(), insc.getNota()});
+
+        }
+     }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -69,23 +94,31 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
 
         jtInscripcion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane1.setViewportView(jtInscripcion);
 
         jbGuardar.setText("Guardar");
+        jbGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbGuardarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbSalirActionPerformed(evt);
+            }
+        });
+
+        jcbAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbAlumnoActionPerformed(evt);
             }
         });
 
@@ -137,8 +170,25 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-        // TODO add your handling code here:
+        dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jcbAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAlumnoActionPerformed
+        cargarMateriasInscriptas();
+    }//GEN-LAST:event_jcbAlumnoActionPerformed
+
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        int fila = jtInscripcion.getSelectedRow();
+        //Necesitamos "IDalumno" IDmateria Nota. Metodo Actualizar nota
+        if (fila!=-1) {
+            int idIncs = (Integer)jtInscripcion.getValueAt(fila, 0);
+            Alumno alumno = (Alumno)jcbAlumno.getSelectedItem();
+            int id = alumno.getIdAlumno();
+            List<Materia> materias = idata.obtenerMateriasCursadas(id);
+            
+            
+        }
+    }//GEN-LAST:event_jbGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
