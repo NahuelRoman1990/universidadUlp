@@ -192,22 +192,24 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         try {
-               if(jtNombre.getText().isEmpty() || jtApellido.getText().isEmpty()  || jtDocumento.getText().isEmpty()){
-             JOptionPane.showMessageDialog(null, "No debe haber campos vacios", "Error                       ", JOptionPane.ERROR_MESSAGE);  
-             return;
-               }
-        int documento = Integer.parseInt(jtDocumento.getText());
-        String apellido = jtApellido.getText();
-        String nombre = jtNombre.getText();
-        Boolean activo = jrbEstado.isSelected();
-        LocalDate fechaNacimiento = jdcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        
-        Alumno alumno = new Alumno(documento, apellido, nombre, fechaNacimiento, true);
-        ad.guardarAlumno(alumno);
-         } catch (NumberFormatException nf) {
-             JOptionPane.showMessageDialog(this, "El documento debe ser numeros enteros");
-        } catch(NullPointerException np){
-            JOptionPane.showMessageDialog(this,"Completa la fecha formato dd/mm/aaaa");
+            if (jtNombre.getText().isEmpty() || jtApellido.getText().isEmpty() || jtDocumento.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(null, "No debe haber campos vacios", "Error                       ", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            int documento = Integer.parseInt(jtDocumento.getText());
+            String apellido = jtApellido.getText();
+            String nombre = jtNombre.getText();
+            Boolean activo = jrbEstado.isSelected();
+            LocalDate fechaNacimiento = jdcFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+            Alumno alumno = new Alumno(documento, apellido, nombre, fechaNacimiento, true);
+            ad.guardarAlumno(alumno);
+
+        } catch (NumberFormatException nf) {
+            JOptionPane.showMessageDialog(this, "El documento debe ser un numero entero");
+        } catch (NullPointerException np) {
+            JOptionPane.showMessageDialog(this, "Completa la fecha formato dd/mm/aaaa");
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
@@ -240,6 +242,10 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
         } catch (NumberFormatException nf) {
             JOptionPane.showMessageDialog(this, "Se debe ingresar un numero entero en el campo Documento");
             jtDocumento.setText("");
+        } catch (NullPointerException np) {
+            JOptionPane.showMessageDialog(this, "No existe el alumno");
+            borrarCampos();
+            
         }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
@@ -249,13 +255,16 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
 
     private void jbNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbNuevoActionPerformed
         // TODO add your handling code here:
+        borrarCampos();
+    }//GEN-LAST:event_jbNuevoActionPerformed
+
+    private void borrarCampos(){
         jtDocumento.setText("");
         jtApellido.setText("");
         jtNombre.setText("");
         jrbEstado.setSelected(false);
         jdcFecha.setDate(null);
-    }//GEN-LAST:event_jbNuevoActionPerformed
-
+    }
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling code here:
         //verificar
@@ -266,14 +275,20 @@ public class MenuAlumnos extends javax.swing.JInternalFrame {
             int id = alumno.getIdAlumno();
 
             ad.eliminarAlumno(id);
+            borrarCampos();
+            
         } catch (NumberFormatException nf) {
             JOptionPane.showMessageDialog(this, "Se debe ingresar un numero entero en el campo Documento");
             jtDocumento.setText("");
+        } catch (NullPointerException np) {
+            JOptionPane.showMessageDialog(this, "No existe el alumno");
+            borrarCampos();
+            
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-      dispose();
+        dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
 

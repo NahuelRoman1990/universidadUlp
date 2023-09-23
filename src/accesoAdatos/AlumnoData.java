@@ -32,6 +32,8 @@ public class AlumnoData {
     }
 
     public void guardarAlumno(Alumno alumno) {
+        
+                        
         String sql = "INSERT INTO alumno(dni, apellido, nombre, fechaNacimiento, estado )"
                 + "VALUES(?,?,?,?,?)";
         try {
@@ -51,13 +53,15 @@ public class AlumnoData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno.\n Verifique si el documento ingresado ya se encuentra registrado.");
+            
+            
         }
     }
 
     public void modificarAlumno(Alumno alumno) {
-
-        String sql = "UPDATE alumno SET dni=?, apellido=?, nombre=?, fechaNacimiento=?"
+        
+               String sql = "UPDATE alumno SET dni=?, apellido=?, nombre=?, fechaNacimiento=?"
                 + "WHERE idAlumno =?";
 
         try {
@@ -109,7 +113,7 @@ public class AlumnoData {
                 alumno.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
                 alumno.setActivo(true);
             } else {
-                JOptionPane.showMessageDialog(null, "No existe ese alumno");
+                //JOptionPane.showMessageDialog(null, "No existe ese alumno");
             }
             ps.close();
 
@@ -135,12 +139,12 @@ public class AlumnoData {
                 alumno.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
                 alumno.setActivo(true);
             } else {
-                JOptionPane.showMessageDialog(null, "No existe ese alumno");
+                //JOptionPane.showMessageDialog(null, "No existe ese alumno");
             }
             ps.close();
 
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno");
+            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla alumno.");
         }
         return alumno;
 

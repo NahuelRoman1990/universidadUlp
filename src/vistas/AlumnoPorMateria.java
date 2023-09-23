@@ -31,6 +31,7 @@ public class AlumnoPorMateria extends javax.swing.JInternalFrame {
         initComponents();
         cargarCombo();
         cabeceraListarMateria();
+        cargarAlumnosPorMateria();
 
     }
 
@@ -73,25 +74,6 @@ public class AlumnoPorMateria extends javax.swing.JInternalFrame {
             }
         });
 
-        jtAlumno.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "ID", "DNI", "Apellido", "Nombre"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
         JscrollAlumMateria.setViewportView(jtAlumno);
 
         jbSalir.setText("Salir");
@@ -114,7 +96,7 @@ public class AlumnoPorMateria extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(119, 119, 119)
                 .addComponent(jLabel1)
-                .addContainerGap(176, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbSalir)
@@ -145,20 +127,17 @@ public class AlumnoPorMateria extends javax.swing.JInternalFrame {
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         // TODO add your handling code here:
+        dispose();
+        
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jcbListadoMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbListadoMateriasActionPerformed
       
-//        if (jtAlumno.getRowCount()>=0){
-//          borrarFilas();  
-//      }
             
-      Materia materiaSelect =(Materia)jcbListadoMaterias.getSelectedItem();
-      List<Alumno> listaAlumno = idata.obtenerAlumnosXMaterias(materiaSelect.getIdMateria());
-      for(Alumno alumno:listaAlumno){
-          modelo.addRow(new Object[]{alumno.getIdAlumno(),alumno.getDni(),alumno.getApellido(),alumno.getNombre()});
-          
-      }
+      borrarFilas();
+      cargarAlumnosPorMateria();
+      
+      
     }//GEN-LAST:event_jcbListadoMateriasActionPerformed
 
 
@@ -177,6 +156,15 @@ private void borrarFilas(){
         modelo.removeRow(fila);
     }
     
+}
+
+private void cargarAlumnosPorMateria(){
+  Materia materiaSelect =(Materia)jcbListadoMaterias.getSelectedItem();
+      List<Alumno> listaAlumno = idata.obtenerAlumnosXMaterias(materiaSelect.getIdMateria());
+      for(Alumno alumno:listaAlumno){
+          modelo.addRow(new Object[]{alumno.getIdAlumno(),alumno.getDni(),alumno.getApellido(),alumno.getNombre()});
+          
+      }  
 }
 
 
