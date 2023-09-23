@@ -12,6 +12,7 @@ import entidades.Alumno;
 import entidades.Inscripcion;
 import entidades.Materia;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import vistas.ManejoDeInscripcion;
 
@@ -20,37 +21,45 @@ import vistas.ManejoDeInscripcion;
  * @author Erni
  */
 public class ManipulacionNotas extends javax.swing.JInternalFrame {
-    
+
     private InscripcionData idata = new InscripcionData();
     private MateriaData md = new MateriaData();
     private AlumnoData ad = new AlumnoData();
-    private DefaultTableModel modelo = new DefaultTableModel();
+    private DefaultTableModel modelo = new DefaultTableModel() {
+        public boolean isCellEditable(int f, int c) {
+            if (c==3){
+        return true;
+            }else{
+        return false;
+    }
+        }
+    };
 
-   
     public ManipulacionNotas() {
         initComponents();
         cargarCombo();
         cargarCabecera();
-        
-       
-        
+        cargarMateriasInscriptas();
+
     }
-    
+
     private void cargarCombo() {
 
         for (Alumno alu : ad.listarAlumnos()) {
 
-          jcbAlumno.addItem(alu);
+            jcbAlumno.addItem(alu);
         }
 
     }
-    
-    private void cargarCabecera(){
+
+    private void cargarCabecera() {
         modelo.addColumn("Código");
+        modelo.addColumn("Id materia");
         modelo.addColumn("Nombre");
         modelo.addColumn("Nota");
         jtInscripcion.setModel(modelo);
     }
+
     private void borrarFilas() {
         int fila = jtInscripcion.getRowCount() - 1;
         for (; fila >= 0; fila--) {
@@ -58,17 +67,18 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
         }
 
     }
-     private void cargarMateriasInscriptas(){
+
+    private void cargarMateriasInscriptas() {
         borrarFilas();
 
         Alumno alumno = (Alumno) jcbAlumno.getSelectedItem();
-        //borrar la lista 
+
         List<Inscripcion> inscripcion = idata.obtenerInscripcionPorAlumno(alumno.getIdAlumno());
         for (Inscripcion insc : inscripcion) {
-            modelo.addRow(new Object[]{insc.getIdInscripcion(), insc.getMateria().getNombre(), insc.getNota()});
+            modelo.addRow(new Object[]{insc.getIdInscripcion(), insc.getMateria().getIdMateria(), insc.getMateria().getNombre(), insc.getNota()});
 
         }
-     }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -180,13 +190,24 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         int fila = jtInscripcion.getSelectedRow();
         //Necesitamos "IDalumno" IDmateria Nota. Metodo Actualizar nota
-        if (fila!=-1) {
-            int idIncs = (Integer)jtInscripcion.getValueAt(fila, 0);
-            Alumno alumno = (Alumno)jcbAlumno.getSelectedItem();
-            int id = alumno.getIdAlumno();
-            List<Materia> materias = idata.obtenerMateriasCursadas(id);
+        if (fila != -1) {
             
-            
+            try{
+            int idIncs = (Integer) jtInscripcion.getValueAt(fila, 0);
+            int idMateria = (Integer) jtInscripcion.getValueAt(fila, 1);
+            double nota = Double.parseDouble((String) jtInscripcion.getValueAt(fila, 3));
+            Alumno alumno = (Alumno) jcbAlumno.getSelectedItem();
+            int idAlumno = alumno.getIdAlumno();
+            if(nota>=0 && nota <=10){
+            idata.actualizarNota(idAlumno, idMateria, nota);
+            }else{
+                JOptionPane.showMessageDialog(this, "La nota debe encontrarse entre 0 y 10");
+            }
+            }catch (NumberFormatException nf){
+                JOptionPane.showMessageDialog(this, "La nota debe ser un número decimal");
+                jtInscripcion.setValueAt("", fila, 3);
+            }
+
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
