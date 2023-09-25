@@ -60,7 +60,7 @@ public class InscripcionData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripcion");
+            JOptionPane.showMessageDialog(null, "Error al actualizar la nota: "+nota);
         }
     }
     //Prueba Angie OK

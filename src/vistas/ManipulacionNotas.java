@@ -8,9 +8,14 @@ package vistas;
 import accesoAdatos.AlumnoData;
 import accesoAdatos.InscripcionData;
 import accesoAdatos.MateriaData;
+import com.sun.webkit.dom.EventImpl;
 import entidades.Alumno;
 import entidades.Inscripcion;
 import entidades.Materia;
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -137,20 +142,19 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel2)
                         .addGap(85, 85, 85)
                         .addComponent(jcbAlumno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(160, 160, 160)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jbGuardar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(123, 123, 123)
                         .addComponent(jbSalir)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -188,6 +192,7 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbAlumnoActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+        
         int fila = jtInscripcion.getSelectedRow();
         //Necesitamos "IDalumno" IDmateria Nota. Metodo Actualizar nota
         if (fila != -1) {
@@ -198,7 +203,7 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
             double nota = Double.parseDouble((String) jtInscripcion.getValueAt(fila, 3));
             Alumno alumno = (Alumno) jcbAlumno.getSelectedItem();
             int idAlumno = alumno.getIdAlumno();
-            if(nota>=0 && nota <=10){
+            if(nota>=0 && nota <=10){  
             idata.actualizarNota(idAlumno, idMateria, nota);
             }else{
                 JOptionPane.showMessageDialog(this, "La nota debe encontrarse entre 0 y 10");
@@ -206,6 +211,8 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
             }catch (NumberFormatException nf){
                 JOptionPane.showMessageDialog(this, "La nota debe ser un número decimal");
                 jtInscripcion.setValueAt("", fila, 3);
+            }catch (ClassCastException cce){
+                JOptionPane.showMessageDialog(this, "Presione enter para guardar la nota");
             }
 
         }

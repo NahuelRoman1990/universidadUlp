@@ -5,6 +5,10 @@
  */
 package vistas;
 
+import java.awt.Desktop;
+import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author roman
@@ -199,9 +203,9 @@ public class MenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jmSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmSalirActionPerformed
+      
 
-        // TODO add your handling code here:
-        dispose();
+       
     }//GEN-LAST:event_jmSalirActionPerformed
 
     /**
