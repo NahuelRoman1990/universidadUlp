@@ -58,10 +58,10 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
     }
 
     private void cargarCabecera() {
-        modelo.addColumn("Código");
-        modelo.addColumn("Id materia");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Nota");
+        modelo.addColumn("CCÓDIGO");
+        modelo.addColumn("ID MATERIA");
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("NOTA");
         jtInscripcion.setModel(modelo);
     }
 
