@@ -210,6 +210,7 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
             }
             
         }
+             JOptionPane.showMessageDialog(null, "Notas Actualizadas");  
              }catch (NumberFormatException nf){
                 JOptionPane.showMessageDialog(this, "La nota debe ser un número decimal");
                 jtInscripcion.setValueAt("", fila, 3);
@@ -218,7 +219,7 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
             }
 
            
-             JOptionPane.showMessageDialog(null, "Notas Actualizadas");     
+                
             
                  
              
