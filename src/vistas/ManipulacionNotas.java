@@ -196,8 +196,9 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
         int fila = jtInscripcion.getSelectedRow();
         //Necesitamos "IDalumno" IDmateria Nota. Metodo Actualizar nota
          if(fila!= -1){
+              try{
              for (int i=0;i<jtInscripcion.getRowCount();i++) {
-                  try{
+                 
             int idMateria = (Integer) jtInscripcion.getValueAt(i, 1);
             double nota = Double.parseDouble((String) jtInscripcion.getValueAt(i, 3));
             Alumno alumno = (Alumno) jcbAlumno.getSelectedItem();
@@ -207,16 +208,18 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
             }else{
                 JOptionPane.showMessageDialog(this, "La nota debe encontrarse entre 0 y 10");
             }
-            }catch (NumberFormatException nf){
+            
+        }
+             }catch (NumberFormatException nf){
                 JOptionPane.showMessageDialog(this, "La nota debe ser un número decimal");
-                jtInscripcion.setValueAt("", i, 3);
+                jtInscripcion.setValueAt("", fila, 3);
             }catch (ClassCastException cce){
                 JOptionPane.showMessageDialog(this, "Presione enter para guardar la nota");
             }
 
-        }
-                 
-                 
+           
+             JOptionPane.showMessageDialog(null, "Notas Actualizadas");     
+            
                  
              
          }
