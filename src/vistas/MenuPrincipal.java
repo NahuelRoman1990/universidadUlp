@@ -51,11 +51,11 @@ public class MenuPrincipal extends javax.swing.JFrame {
         jdEscritorio.setLayout(jdEscritorioLayout);
         jdEscritorioLayout.setHorizontalGroup(
             jdEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 519, Short.MAX_VALUE)
+            .addGap(0, 997, Short.MAX_VALUE)
         );
         jdEscritorioLayout.setVerticalGroup(
             jdEscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 502, Short.MAX_VALUE)
+            .addGap(0, 611, Short.MAX_VALUE)
         );
 
         jmAlumno.setText("Alumno");
@@ -139,9 +139,8 @@ public class MenuPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jdEscritorio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

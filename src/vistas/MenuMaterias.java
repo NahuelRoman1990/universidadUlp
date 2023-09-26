@@ -5,6 +5,7 @@
  */
 package vistas;
 
+import accesoAdatos.InscripcionData;
 import accesoAdatos.MateriaData;
 import entidades.Materia;
 import javax.swing.JOptionPane;
@@ -16,7 +17,7 @@ import javax.swing.JOptionPane;
 public class MenuMaterias extends javax.swing.JInternalFrame {
 
     private MateriaData md = new MateriaData();
-
+    private InscripcionData idata = new InscripcionData();
     /**
      * Creates new form MenuMaterias
      */
@@ -197,7 +198,9 @@ public class MenuMaterias extends javax.swing.JInternalFrame {
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         try {
-
+//            if (idata.obtenerAlumnosXMaterias(WIDTH)) {
+//                
+//            }
             int codigo = Integer.parseInt(jtCodigo.getText());
             md.eliminarMateria(codigo);
             jtAnio.setText("");

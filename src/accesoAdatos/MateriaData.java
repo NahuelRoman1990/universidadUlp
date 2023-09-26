@@ -101,6 +101,7 @@ public class MateriaData {
      //Prueba Angie OK 
      public void eliminarMateria(int id){
          String sql = "UPDATE materia SET estado=0 WHERE idMateria=?";
+         
          try {
              PreparedStatement ps = con.prepareStatement(sql);
              ps.setInt(1, id);
