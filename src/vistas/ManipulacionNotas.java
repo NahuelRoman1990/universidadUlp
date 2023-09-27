@@ -79,10 +79,13 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
         Alumno alumno = (Alumno) jcbAlumno.getSelectedItem();
 
         List<Inscripcion> inscripcion = idata.obtenerInscripcionPorAlumno(alumno.getIdAlumno());
-        for (Inscripcion insc : inscripcion) {
+        
+            for (Inscripcion insc : inscripcion) {
             modelo.addRow(new Object[]{insc.getIdInscripcion(), insc.getMateria().getIdMateria(), insc.getMateria().getNombre(), insc.getNota()});
 
+        
         }
+        
     }
 
 
@@ -189,34 +192,35 @@ public class ManipulacionNotas extends javax.swing.JInternalFrame {
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
 
-        int fila = jtInscripcion.getSelectedRow();
-        //Necesitamos "IDalumno" IDmateria Nota. Metodo Actualizar nota
-        if (fila != -1) {
-            try {
+         try {
+    for (int i = 0; i < jtInscripcion.getRowCount(); i++) {
+        Object nota = jtInscripcion.getValueAt(i, 3);
+        
+        if (nota instanceof String) {
+            
+            double notaDouble = Double.parseDouble((String) nota);
 
-                for (int i = 0; i < jtInscripcion.getRowCount(); i++) {
-                    double nota = Double.parseDouble((String) jtInscripcion.getValueAt(i, 3));
-                    if (nota >= 0 && nota <= 10) {
-                        int idMateria = (Integer) jtInscripcion.getValueAt(i, 1);
+            if (notaDouble >= 0 && notaDouble <= 10) {
+                int idMateria = (Integer) jtInscripcion.getValueAt(i, 1);
 
-                        Alumno alumno = (Alumno) jcbAlumno.getSelectedItem();
-                        int idAlumno = alumno.getIdAlumno();
+                Alumno alumno = (Alumno) jcbAlumno.getSelectedItem();
+                int idAlumno = alumno.getIdAlumno();
 
-                        idata.actualizarNota(idAlumno, idMateria, nota);
-                    } else {
-                        JOptionPane.showMessageDialog(this, "La nota debe encontrarse entre 0 y 10");
-                    }
-
-                }
-                JOptionPane.showMessageDialog(null, "Notas Actualizadas");
-            } catch (NumberFormatException nf) {
-                JOptionPane.showMessageDialog(this, "La nota debe ser un número decimal");
-                jtInscripcion.setValueAt("", fila, 3);
-            } catch (ClassCastException cce) {
-                JOptionPane.showMessageDialog(this, "Presione enter para guardar la nota");
+                idata.actualizarNota(idAlumno, idMateria, notaDouble);
+            } else {
+                JOptionPane.showMessageDialog(this, "La nota debe encontrarse entre 0 y 10");
             }
+        } 
+    }
+    JOptionPane.showMessageDialog(null, "Notas Actualizadas");
+} catch (NumberFormatException nf) {
+    JOptionPane.showMessageDialog(this, "La nota debe ser un número decimal");
+}
+//            } catch (ClassCastException cce) {
+//                JOptionPane.showMessageDialog(this, "Presione enter para guardar la nota");
+//            }
 
-        }
+        
 
 //        if (fila != -1) {
 //            

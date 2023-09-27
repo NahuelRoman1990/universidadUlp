@@ -11,8 +11,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 
@@ -25,7 +23,7 @@ public class InscripcionData {
     public InscripcionData() {
         this.con = Conexion.getConnection();
     }
-    //Prueba Angie OK
+    
     public void guardarInscripcion(Inscripcion insc) {
         String sql = "INSERT INTO inscripcion(idAlumno, idMateria, nota) VALUES(?,?,?)";
         try {
@@ -44,7 +42,7 @@ public class InscripcionData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla de inscripcion");
         }
     }
-    //Prueba Angie OK
+    
     public void actualizarNota(int idAlumno, int idMateria, double nota) {
 
         String sql = "UPDATE inscripcion SET nota = ? WHERE idAlumno = ? AND idMateria = ?";
@@ -54,16 +52,13 @@ public class InscripcionData {
             ps.setInt(2, idAlumno);
             ps.setInt(3, idMateria);
             ps.executeUpdate();
-            int filas = ps.executeUpdate();
-//            if (filas > 0) {
-//                JOptionPane.showMessageDialog(null, "Nota Actualizada");
-//            }
+            int filas = ps.executeUpdate();   
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al actualizar la nota: "+nota);
         }
     }
-    //Prueba Angie OK
+  
     public void bajaInscripcionMateria(int idAlumno, int idMateria) {
 
         String sql = "DELETE FROM inscripcion WHERE idAlumno = ? AND idMateria = ?";
@@ -82,7 +77,7 @@ public class InscripcionData {
             JOptionPane.showMessageDialog(null, "Error al acceder a la tabla inscripcion");
         }
     }
-    //Prueba Angie OK
+    
     public List<Inscripcion> obtenerInscripciones() {
 
         ArrayList<Inscripcion> cursos = new ArrayList<>();
@@ -111,13 +106,13 @@ public class InscripcionData {
         return cursos;
     }
 
-    //Prueba Angie OK
+    
     public List<Materia> obtenerMateriasCursadas(int idAlumno) {
 
         ArrayList<Materia> materias = new ArrayList<>();
 
         String sql = "SELECT inscripcion.idMateria, nombre, año FROM inscripcion, materia WHERE inscripcion.idMateria ="
-                + " materia.idMateria AND inscripcion.idAlumno = ?";
+                + " materia.idMateria AND inscripcion.idAlumno = ? AND materia.estado = 1";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -140,10 +135,10 @@ public class InscripcionData {
         return materias;
     }
     
-    //Prueba Angie OK
+   
     public List<Materia> obtenerMateriaNoCursadas(int idAlumno){
         ArrayList<Materia> materias=new ArrayList<>();
-        //se debe encerrar la subconsulta en parentesis
+        
         String sql = "SELECT * FROM materia WHERE estado = 1 AND idMateria not in "
                 + "(SELECT idMateria FROM inscripcion WHERE idAlumno = ?)";
         
@@ -171,7 +166,7 @@ public class InscripcionData {
         
     }
     
-    //Prueba Angie OK
+    
     public List<Inscripcion> obtenerInscripcionPorAlumno(int idAlumno){
         ArrayList<Inscripcion> inscripciones = new ArrayList<>();
         
@@ -201,7 +196,7 @@ public class InscripcionData {
         
     }
     
-    //Prueba Angie OK
+    
     public List<Alumno> obtenerAlumnosXMaterias(int idMateria){
         ArrayList<Alumno> alumnos = new ArrayList<>();
         

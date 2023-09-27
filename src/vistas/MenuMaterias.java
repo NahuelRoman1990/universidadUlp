@@ -159,11 +159,10 @@ public class MenuMaterias extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jbBuscar)
-                        .addComponent(jtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jbBuscar)
+                    .addComponent(jtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -182,7 +181,7 @@ public class MenuMaterias extends javax.swing.JInternalFrame {
                     .addComponent(jbEliminar)
                     .addComponent(jbGuardar)
                     .addComponent(jBSalir))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         pack();
@@ -198,9 +197,7 @@ public class MenuMaterias extends javax.swing.JInternalFrame {
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         try {
-//            if (idata.obtenerAlumnosXMaterias(WIDTH)) {
-//                
-//            }
+
             int codigo = Integer.parseInt(jtCodigo.getText());
             md.eliminarMateria(codigo);
             jtAnio.setText("");
@@ -222,6 +219,7 @@ public class MenuMaterias extends javax.swing.JInternalFrame {
             jtNombre.setText(mate.getNombre());
             jrbEstado.setSelected(mate.isActivo());
         } catch (NullPointerException np) {
+            JOptionPane.showMessageDialog(this, "La materia no existe");
             jtCodigo.setText("");
         } catch (NumberFormatException nf) {
             jtCodigo.setText("");

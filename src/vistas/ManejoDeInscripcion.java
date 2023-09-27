@@ -48,7 +48,6 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
         jbInscribir.setEnabled(true);
         borrarFilas();
 
-        //falta borrar la lista cada vez que se cargue
         Alumno alumno = (Alumno) jcbListaAlumno.getSelectedItem();
         List<Materia> materias = idata.obtenerMateriaNoCursadas(alumno.getIdAlumno());
         for (Materia mate : materias) {
@@ -64,7 +63,7 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
         borrarFilas();
 
         Alumno alumno = (Alumno) jcbListaAlumno.getSelectedItem();
-        //borrar la lista 
+        
         List<Materia> materias = idata.obtenerMateriasCursadas(alumno.getIdAlumno());
         for (Materia mate : materias) {
             modelo.addRow(new Object[]{mate.getIdMateria(), mate.getNombre(), mate.getAnioMateria()});
@@ -269,12 +268,12 @@ public class ManejoDeInscripcion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jcbListaAlumnoActionPerformed
 
     private void jbAnularInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAnularInscripcionActionPerformed
-         int fila = jtMaterias.getSelectedRow();
+        int fila = jtMaterias.getSelectedRow();
         if (fila != -1) {
             int idmate = (Integer) jtMaterias.getValueAt(fila, 0);
-            Materia materia = md.buscarMateria(idmate);
             Alumno alumno = (Alumno) jcbListaAlumno.getSelectedItem();
             int idalum = alumno.getIdAlumno();
+            
             idata.bajaInscripcionMateria(idalum, idmate);
             borrarFilas();
             cargarMateriasInscriptas();

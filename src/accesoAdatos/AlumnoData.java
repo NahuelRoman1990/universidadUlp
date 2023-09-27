@@ -87,7 +87,7 @@ public class AlumnoData {
         }
 
     }
-//revisar si funciona
+
     public Alumno buscarAlumno(int id) {
         String sql = "SELECT dni, apellido, nombre, fechaNacimiento FROM alumno WHERE idAlumno = ? AND estado = 1";
         Alumno alumno = null;
@@ -103,9 +103,7 @@ public class AlumnoData {
                 alumno.setNombre(rs.getString("nombre"));
                 alumno.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
                 alumno.setActivo(true);
-            } else {
-                //JOptionPane.showMessageDialog(null, "No existe ese alumno");
-            }
+            } 
             ps.close();
 
         } catch (SQLException ex) {
@@ -129,9 +127,8 @@ public class AlumnoData {
                 alumno.setNombre(rs.getString("nombre"));
                 alumno.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
                 alumno.setActivo(true);
-            } else {
-                //JOptionPane.showMessageDialog(null, "No existe ese alumno");
-            }
+            } 
+            
             ps.close();
 
         } catch (SQLException ex) {

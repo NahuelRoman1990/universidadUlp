@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package accesoAdatos;
 
 
-import entidades.Alumno;
 import entidades.Materia;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,15 +9,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import org.mariadb.jdbc.Statement;
 
-/**
- *
- * @author roman
- */
+
 public class MateriaData {
     
      private Connection con = null;
@@ -46,7 +36,7 @@ public class MateriaData {
              
              if(rs.next()){
                  materia.setIdMateria(rs.getInt(1));
-                 JOptionPane.showMessageDialog(null, "Materia Guardada");
+                 JOptionPane.showMessageDialog(null, "Materia Guardada con el ID : "+ rs.getInt(1));
                  
              }
              ps.close();               
@@ -69,9 +59,7 @@ public class MateriaData {
                 materia.setNombre(rs.getString("nombre"));
                 materia.setAnioMateria(rs.getInt("año"));
                 materia.setActivo(true);
-            } else {
-                JOptionPane.showMessageDialog(null, "No existe ese materia");
-            }
+            } 
             ps.close();
 
         } catch (SQLException ex) {
@@ -98,7 +86,7 @@ public class MateriaData {
          
      }
     
-     //Prueba Angie OK 
+    
      public void eliminarMateria(int id){
          String sql = "UPDATE materia SET estado=0 WHERE idMateria=?";
          
@@ -118,7 +106,7 @@ public class MateriaData {
          
      }
      
-     //Prueba Angie OK
+     
      public List<Materia> listarMateria(){
          String sql ="SELECT idMateria, nombre, año FROM materia WHERE estado=1";
          ArrayList<Materia> materias = new ArrayList<>();
